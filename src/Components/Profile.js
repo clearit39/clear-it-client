@@ -90,7 +90,9 @@ const Profile = () => {
 										<ListItem disablePadding>
 											<ListItemButton>
 												<ListItemIcon>
-													<Avatar>{userData.name.slice(0, 1)}</Avatar>
+													<Avatar>
+													{/* {userData.name.slice(0, 1)} */}
+													</Avatar>
 												</ListItemIcon>
 												<ListItemText primary={userData.username} />
 											</ListItemButton>
