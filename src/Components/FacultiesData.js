@@ -1,4 +1,4 @@
-import cimg from '../Images/aboutImg.svg';
+import cimg from '../assets/aboutImg.svg';
 const FacultiesData = [{
         id: 1,
         cname: "Full Name",

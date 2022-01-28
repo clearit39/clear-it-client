@@ -1,4 +1,4 @@
-import cimg from '../Images/home.svg';
+import cimg from '../assets/home.svg';
 const IITData = [{
         id: 1,
         cname: "Complete Co-ordinate Geometry |JEE Mains and Advanced|",

@@ -1,4 +1,4 @@
-import cimg from '../Images/home.svg';
+import cimg from '../assets/home.svg';
 const StudymaterialCardData = [{
         id: 1,
         type: "Complete Courses",

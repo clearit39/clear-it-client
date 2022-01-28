@@ -4,7 +4,7 @@ import { Box, Container, Grid } from '@mui/material/';
 import { makeStyles } from '@mui/styles';
 import Avatar from '@mui/material/Avatar';
 import { NavLink } from 'react-router-dom';
-import aboutImg from '../Images/aboutImg.svg'
+import aboutImg from '../assets/aboutImg.svg'
 
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';

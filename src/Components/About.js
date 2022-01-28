@@ -1,5 +1,5 @@
 import React from 'react';
-import aboutImg from '../Images/aboutImg.svg'
+import aboutImg from '../assets/aboutImg.svg'
 import { Box, Container, Grid } from '@mui/material/';
 import { makeStyles } from '@mui/styles';
 

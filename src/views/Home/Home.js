@@ -1,5 +1,5 @@
 import React from 'react';
-import homeImg from '../../Images/home.svg';
+import homeImg from '../../assets/home.svg';
 import { Box, Container, Grid } from '@mui/material/';
 import { makeStyles } from '@mui/styles';
 import IITData from '../../Components/IITData';
