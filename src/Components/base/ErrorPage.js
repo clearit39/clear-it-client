@@ -1,5 +1,5 @@
 import React from 'react';
-import error404 from '../Images/error404.svg';
+import error404 from '../../Images/error404.svg';
 import { Button, Box, Container, Grid } from '@mui/material/';
 import { NavLink } from 'react-router-dom';
 import { makeStyles } from '@mui/styles';

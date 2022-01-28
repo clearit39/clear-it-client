@@ -1,13 +1,13 @@
 import * as React from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
-import logo from '../logo.svg';
+import logo from '../../logo.svg';
 import Box from '@mui/material/Box';
 import { makeStyles } from '@mui/styles';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Link from '@mui/material/Link';
 import { Grid, ButtonGroup, Button } from '@mui/material';
-import List from './Lists';
+import List from '../Lists';
 import FooterData from './FooterData';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import YouTubeIcon from '@mui/icons-material/YouTube';

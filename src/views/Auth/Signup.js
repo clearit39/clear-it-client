@@ -17,7 +17,7 @@ import Typography from '@mui/material/Typography';
 import { useNavigate } from 'react-router-dom';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { api } from '../backend';
+import { api } from '../../backend';
 
 function Copyright(props) {
     return (

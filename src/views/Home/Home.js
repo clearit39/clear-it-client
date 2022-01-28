@@ -1,11 +1,11 @@
 import React from 'react';
-import homeImg from '../Images/home.svg';
+import homeImg from '../../Images/home.svg';
 import { Box, Container, Grid } from '@mui/material/';
 import { makeStyles } from '@mui/styles';
-import IITData from './IITData';
-import NEETData from './NEETData';
-import FacultiesData from './FacultiesData';
-import IITCards from './IITCards';
+import IITData from '../../Components/IITData';
+import NEETData from '../../Components/NEETData';
+import FacultiesData from '../../Components/FacultiesData';
+import IITCards from '../../Components/IITCards';
 const useStyles = makeStyles((theme) => ({
     root: {
         margin: "55px",
