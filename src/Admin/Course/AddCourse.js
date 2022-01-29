@@ -103,7 +103,6 @@ const AddCourse = () => {
 
 	const onSubmit = async (course) => {
 		if (isAutheticated()) {
-			course.prcourseDefault();
 			await createCourse(user._id, values, token).then((data) => {
 				console.log(data);
 				if (data.error) {
