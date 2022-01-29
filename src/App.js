@@ -1,7 +1,13 @@
-import React,{createContext,useReducer} from 'react'
+import React, { createContext, useReducer } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-import { Routes, Route,  BrowserRouter, Switch, Redirect } from 'react-router-dom';
+import {
+	Routes,
+	Route,
+	BrowserRouter,
+	Switch,
+	Redirect,
+} from 'react-router-dom';
 import Navbar from './Components/base/Navbars';
 import Home from './views/Home/Home';
 import About from './Components/About';
@@ -14,7 +20,7 @@ import Login from './views/Auth/Login';
 import Logout from './views/Auth/Logout';
 import Signup from './views/Auth/Signup';
 import Profile from './Components/Profile';
-import Footer from "./Components/base/Footer";
+import Footer from './Components/base/Footer';
 // import ErrorPage from './Components/base/ErrorPage';
 import ScrollButton from './Components/ScrollButton';
 import AddCourse from "./Admin/Course/AddCourse";
@@ -23,6 +29,7 @@ import { initialState,reducer } from './reducer/UseReducer';
 import PrivateRoute from "./APIs/auth/PrivateRoutes"
 import AdminRoute from "./APIs/auth/AdminRoutes"
 import ManageCourse from "./Admin/Course/ManageCourse";
+import PaymentGateway from "./views/payment/PaymentGateway";
 export const UserContext = createContext();
 const Routing = ()=>{
   return (
@@ -57,22 +64,23 @@ const Routing = ()=>{
       <Route path="/signup" element={<Signup />} />
       <Route path="/profile" element={<Profile />} />
       <Route path="/logout" element={<Logout />} />
+      <Route path="/payment" element={<PaymentGateway />} />
     </Routes>
     // </BrowserRouter>
   );
 };
 const App = () => {
-  const [state, dispatch] = useReducer(reducer, initialState);
- 
-  return (
-    <>
-    <UserContext.Provider value={{state,dispatch}}>
-      <Navbar />
-     <Routing />
-      <Footer />
-      <ScrollButton />
-    </UserContext.Provider>
-    </>
-  )
-}
+	const [state, dispatch] = useReducer(reducer, initialState);
+
+	return (
+		<>
+			<UserContext.Provider value={{ state, dispatch }}>
+				<Navbar />
+				<Routing />
+				<Footer />
+				<ScrollButton />
+			</UserContext.Provider>
+		</>
+	);
+};
 export default App;
