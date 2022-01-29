@@ -6,18 +6,18 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Collapse from "@mui/material/Collapse";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
-import CourseIcon from "@mui/icons-material/Course";
+import EventIcon from "@mui/icons-material/Event";
 import AddIcon from "@mui/icons-material/Add";
 import GroupIcon from "@mui/icons-material/Group";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
-import CourseAvailableIcon from "@mui/icons-material/CourseAvailable";
+import EventAvailableIcon from "@mui/icons-material/EventAvailable";
 import StarBorder from "@mui/icons-material/StarBorder";
 import PersonIcon from "@mui/icons-material/Person";
 import { Typography } from "@mui/material";
 import { isAutheticated } from "../APIs/auth/index";
 import { Link } from "react-router-dom";
-import { makeStyles } from "@material-ui/core";
+import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles((theme) => ({
   link: {
@@ -48,7 +48,8 @@ export default function NestedList() {
         <ListSubheader component="div" id="nested-list-subheader">
           <Typography variant="h5">Welcome {user.firstname}</Typography>
         </ListSubheader>
-      }>
+      }
+    >
       <ListItemButton onClick={handleClick("users")}>
         <ListItemIcon>
           <GroupIcon />
@@ -71,7 +72,7 @@ export default function NestedList() {
 
       <ListItemButton onClick={handleClick("courses")}>
         <ListItemIcon>
-          <CourseIcon />
+          <EventIcon />
         </ListItemIcon>
         <ListItemText primary="Courses" />
         {open.courses ? <ExpandLess /> : <ExpandMore />}
@@ -89,36 +90,9 @@ export default function NestedList() {
           <Link className={classes.link} to="/manageCourse">
             <ListItemButton sx={{ pl: 4 }}>
               <ListItemIcon>
-                <CourseAvailableIcon />
+                <EventAvailableIcon />
               </ListItemIcon>
               <ListItemText primary="Manage Courses" />
-            </ListItemButton>
-          </Link>
-        </List>
-      </Collapse>
-      <ListItemButton onClick={handleClick("academy")}>
-        <ListItemIcon>
-          <CourseIcon />
-        </ListItemIcon>
-        <ListItemText primary="Academy" />
-        {open.academy ? <ExpandLess /> : <ExpandMore />}
-      </ListItemButton>
-      <Collapse in={open.academy} timeout="auto" unmountOnExit>
-        <List component="div" disablePadding>
-          <Link className={classes.link} to="/createAcademyPost">
-            <ListItemButton sx={{ pl: 4 }}>
-              <ListItemIcon>
-                <AddIcon />
-              </ListItemIcon>
-              <ListItemText primary="Create Posts" />
-            </ListItemButton>
-          </Link>
-          <Link className={classes.link} to="/manageAcademyPost">
-            <ListItemButton sx={{ pl: 4 }}>
-              <ListItemIcon>
-                <CourseAvailableIcon />
-              </ListItemIcon>
-              <ListItemText primary="Manage Posts" />
             </ListItemButton>
           </Link>
         </List>

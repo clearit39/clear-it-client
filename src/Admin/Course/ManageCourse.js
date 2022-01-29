@@ -16,11 +16,11 @@ import {
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { deleteCourse, getCourses } from "../../APIs/courseapicall";
+import { deleteCourse, getCourses } from "../../APIs/CoursesAPIcall";
 import { isAutheticated } from "../../APIs/auth/index";
 import { makeStyles } from "@mui/styles";
-import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
-import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 
 const useStyles = makeStyles((theme) => ({
   header: {
@@ -46,11 +46,7 @@ const useStyles = makeStyles((theme) => ({
 const columns = [
   { id: "courseName", label: "Course Name", minWidth: 170 },
   { id: "courseParticipants", label: "Registration", minWidth: 50 },
-  { id: "courseDate", label: "Date", minWidth: 170 },
   { id: "courseTime", label: "Time", minWidth: 170 },
-  { id: "courseLocation", label: "Venue", minWidth: 170 },
-  { id: "courseParticipantsCount", label: "Participants Count", minWidth: 170 },
-  { id: "courseParticipantsLimit", label: "Participants Limit", minWidth: 170 },
 ];
 
 const ManageCourse = () => {
@@ -63,9 +59,9 @@ const ManageCourse = () => {
   const handleClose = () => setOpen(false);
 
   const getAllCourses = async () => {
-    await getCourses().then((data) => {
-      setRows(data);
-    });
+    // await getCourses().then((data) => {
+    //   setRows(data);
+    // });
   };
 
   React.useEffect(() => {

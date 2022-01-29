@@ -20,28 +20,25 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const AdminRoute = ({ component: Component, ...rest }) => {
+const AdminRoute = ({children}) => {
   const classes = useStyles();
+  const auth = true;
+  console.log(children);
   return (
-    <Route
-      {...rest}
-      render={(props) =>
-        isAutheticated() && isAutheticated().user.role === 2 ? (
-          <Grid container className={classes.paper} spacing={3}>
+    auth ? (
+                <Grid container className={classes.paper} spacing={3}>
             <Grid item xs={12} md={2}>
               <Sidebar />
             </Grid>
             <Grid item xs={12} md={9}>
               <Container>
-                <Component {...props} />
+                {children}
               </Container>
             </Grid>
           </Grid>
-        ) : (
-          <Navigate to="/signin" />
-        )
-      }
-    />
+    ) : (
+      <Navigate to="/login" />
+    )
   );
 };
 

@@ -21,12 +21,30 @@ import AddCourse from "./Admin/Course/AddCourse";
 import UpdateCourse from "./Admin/Course/UpdateCourse";
 import { initialState,reducer } from './reducer/UseReducer';
 import PrivateRoute from "./APIs/auth/PrivateRoutes"
-
+import AdminRoute from "./APIs/auth/AdminRoutes"
+import ManageCourse from "./Admin/Course/ManageCourse";
 export const UserContext = createContext();
 const Routing = ()=>{
   return (
+    // <BrowserRouter>
     <Routes>
-      <Route path="/addCourse" element={<AddCourse />} />
+      <Route
+        path="/createCourse"
+        element={
+          <AdminRoute>
+            <AddCourse />
+          </AdminRoute>
+        }
+      />
+      <Route
+        path="/manageCourse"
+        element={
+          <AdminRoute>
+            <ManageCourse />
+          </AdminRoute>
+        }
+      />
+
       <Route path="/updateCourse" element={<UpdateCourse />} />
       <Route exact path="/" element={<Home />} />
       <Route path="/about" element={<About />} />
@@ -40,6 +58,7 @@ const Routing = ()=>{
       <Route path="/profile" element={<Profile />} />
       <Route path="/logout" element={<Logout />} />
     </Routes>
+    // </BrowserRouter>
   );
 };
 const App = () => {
