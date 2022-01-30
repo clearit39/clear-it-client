@@ -46,7 +46,7 @@ export default function NestedList() {
       aria-labelledby="nested-list-subheader"
       subheader={
         <ListSubheader component="div" id="nested-list-subheader">
-          <Typography variant="h5">Welcome {user.firstname}</Typography>
+          <Typography variant="h5">Welcome {user.name}</Typography>
         </ListSubheader>
       }
     >
@@ -93,6 +93,14 @@ export default function NestedList() {
                 <EventAvailableIcon />
               </ListItemIcon>
               <ListItemText primary="Manage Courses" />
+            </ListItemButton>
+          </Link>
+          <Link className={classes.link} to="/courseAllotment">
+            <ListItemButton sx={{ pl: 4 }}>
+              <ListItemIcon>
+                <EventAvailableIcon />
+              </ListItemIcon>
+              <ListItemText primary="Course Allotment" />
             </ListItemButton>
           </Link>
         </List>

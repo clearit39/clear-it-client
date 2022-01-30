@@ -1,37 +1,8 @@
-import React, { useEffect,useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
-import {UserContext} from "../../App";
+import React from 'react';
 
 const Logout = () => {
-	const {state,dispatch} = useContext(UserContext);
-	const navigate = useNavigate();
-    useEffect(() => {
-       fetch('/logout', {
-           method:"GET",
-           headers:{
-               Accept:"application/json",
-               "Content-Type": "application/json"
-           },
-           credentials:"include"
-       }).then((res)=>{
-			dispatch({type:"USER",payload:false});
-            localStorage.clear();
-        navigate('/login')
-        if(res.status !== 200){
-            const error = new Error(res.error);
-            throw error;
-        }
-       }).catch((err)=>{
-        console.log(err);
-       });
-    });
-
-    
-    return (
-        <>
-            
-        </>
-    )
+localStorage.removeItem("ClearITuser");
+    return (<></>);
 }
 
 export default Logout;

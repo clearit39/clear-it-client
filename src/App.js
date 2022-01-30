@@ -30,6 +30,7 @@ import PrivateRoute from "./APIs/auth/PrivateRoutes"
 import AdminRoute from "./APIs/auth/AdminRoutes"
 import ManageCourse from "./Admin/Course/ManageCourse";
 import PaymentGateway from "./views/payment/PaymentGateway";
+import TeacherDashboard from "./Admin/TeacherPortal";
 export const UserContext = createContext();
 const Routing = ()=>{
   return (
@@ -48,6 +49,14 @@ const Routing = ()=>{
         element={
           <AdminRoute>
             <ManageCourse />
+          </AdminRoute>
+        }
+      />
+      <Route
+        path="/teacherDashboard"
+        element={
+          <AdminRoute>
+            <TeacherDashboard />
           </AdminRoute>
         }
       />

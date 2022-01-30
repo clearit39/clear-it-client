@@ -21,7 +21,7 @@ function Copyright(props) {
 	return (
 		<Typography variant="body2" color="text.secondary" align="center" {...props}>
 			{'Copyright © '}
-			<Link color="inherit" href="https://mui.com/">
+			<Link color="inherit" >
 				Your Website
 			</Link>{' '}
 			{new Date().getFullYear()}
@@ -60,8 +60,7 @@ export default function SignIn() {
 		} else {
 			dispatch({type:"USER",payload:true});
 			console.log(data);
-			localStorage.setItem('jwtoken', data.tokens[0].token);
-			localStorage.setItem('user', JSON.stringify(data));
+			localStorage.setItem('ClearITuser', JSON.stringify(data));
 			window.alert('Login Successfull');
 			navigate('/');
 		}

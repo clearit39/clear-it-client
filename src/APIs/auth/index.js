@@ -97,10 +97,10 @@ export const isAutheticated = () => {
   if (typeof window === "undefined") {
     return false;
   }
-  if (localStorage.getItem("finnect")) {
-    // console.log(localStorage.getItem("finnect"));
+  if (localStorage.getItem("ClearITuser")) {
+    // console.log(localStorage.getItem("ClearITuser"));
     // return true;
-    return JSON.parse(localStorage.getItem("finnect"));
+    return JSON.parse(localStorage.getItem("ClearITuser"));
   } else {
     return false;
   }

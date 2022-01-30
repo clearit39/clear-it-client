@@ -26,7 +26,7 @@ const Navbars = () => {
                     <>
                         <Nav.Link>
                             <NavLink className="nav" to="/profile">
-                                <Avatar>{userData.name.slice(0, 1)}</Avatar>
+                                {/* <Avatar>{userData.name.slice(0, 1)}</Avatar> */}
                             </NavLink>
                         </Nav.Link>
                         <Nav.Link>
@@ -75,6 +75,7 @@ const Navbars = () => {
                             </NavDropdown> */}
                             <Nav.Link><NavLink className="nav" to="/studymaterial">Study Material</NavLink></Nav.Link>
                             <Nav.Link><NavLink className="nav" to="/testseries">Test Series</NavLink></Nav.Link>
+                            <Nav.Link><NavLink className="nav" to="/teacherDashboard">Teacher Portal</NavLink></Nav.Link>
                         </Nav>
                         <Nav>
                             <RenderMenu />
