@@ -14,7 +14,9 @@ import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
 import LogoutIcon from '@mui/icons-material/Logout';
 import DraftsIcon from '@mui/icons-material/Drafts';
+
 import { api } from '../backend';
+import { isAutheticated } from '../APIs/auth';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -26,39 +28,15 @@ const useStyles = makeStyles((theme) => ({
 }));
 const Profile = () => {
 	const navigate = useNavigate();
-	const [userData, setuserData] = useState(JSON.parse(localStorage.getItem('user')));
+	const { user, token } = isAutheticated();
+	const [userData, setuserData] = useState(user);
 	// setuserData(JSON.parse(localStorage.getItem('user')));
 	const classes = useStyles();
 
-	useEffect(() => {
-		const callProfilePage = async () => {
-			// try {
-			const res = await fetch(`${api}/profile`, {
-				method: 'GET',
-				headers: {
-					Accept: 'application/json',
-					'Content-Type': 'application/json',
-				},
-				credentials: 'include',
-			});
-			const data = await res.json();
-			console.log('profile' + data);
-			if (!res.status === 200) {
-				const error = new Error(res.error);
-				throw error;
-			}
-			// } catch (err) {
-			//     console.log(err);
-			//     navigate('/login');
-			// }
-		};
+	const logout = () => {
+    localStorage.removeItem("ClearITuser");
+  };
 
-		callProfilePage();
-		// setuserData(JSON.parse(localStorage.getItem('user')));
-		if (localStorage.getItem('jwtoken') == undefined) {
-			navigate('/login');
-		}
-	}, []);
 
 	if (!userData) {
 		return <p>Please Signin to Continue</p>
@@ -109,7 +87,7 @@ const Profile = () => {
 									<Divider />
 									<List>
 										<ListItem disablePadding>
-											<NavLink className="nav" to="/logout">
+											<NavLink className="nav" onClick={() => logout()} to="/">
 												<ListItemButton>
 													<ListItemIcon>
 														<LogoutIcon />

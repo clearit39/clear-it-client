@@ -46,8 +46,9 @@ const AddCourse = () => {
 		bannerPhoto: '',
 		courseDescriptionImage: '',
 		courseOrganizer: '',
+		courseOrganizerId: user._id,
 		courseStatus: '',
-		courseVideoLink: '',
+		courseDemoVideoLink: '',
 		courseParticipants: [],
 		courseTags: [],
 		courseParticipantsLimit: '',
@@ -60,7 +61,7 @@ const AddCourse = () => {
 		courseLocation,
 		courseImage,
 		courseOrganizer,
-		courseVideoLink,
+		courseDemoVideoLink,
 		courseStatus,
 		courseParticipants,
 		courseTags,
@@ -117,7 +118,7 @@ const AddCourse = () => {
 						courseImage: '',
 						bannerPhoto: '',
 						courseDescriptionImage: '',
-						courseVideoLink: '',
+						courseDemoVideoLink: '',
 						courseOrganizer: '',
 						courseStatus: '',
 						courseParticipants: [],
@@ -221,12 +222,12 @@ const AddCourse = () => {
 						<OutlinedInput
 							required
 							fullWidth
-							id="courseVideoLink"
+							id="courseDemoVideoLink"
 							label="Video Link"
-							autoComplete="courseVideoLink"
+							autoComplete="courseDemoVideoLink"
 							variant="outlined"
-							value={courseVideoLink}
-							onChange={handleChange('courseVideoLink')}
+							value={courseDemoVideoLink}
+							onChange={handleChange('courseDemoVideoLink')}
 						/>
 					</FormControl>
 				</Grid>

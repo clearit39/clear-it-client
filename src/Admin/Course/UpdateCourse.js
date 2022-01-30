@@ -60,8 +60,9 @@ const UpdateCourses = () => {
     bannerPhoto: "",
     courseDescriptionImage: "",
     courseOrganizer: "",
+    courseOrganizerId: user._id,
     courseStatus: "",
-    courseYoutubeLink: "",
+    courseDemoVideoLink: "",
     courseParticipants: [],
     courseTags: [],
     courseParticipantsLimit: "",
@@ -74,19 +75,17 @@ const UpdateCourses = () => {
     courseDate,
     courseLocation,
     courseImage,
-    bannerPhoto,
-    courseDescriptionImage,
     courseOrganizer,
-    courseYoutubeLink,
+    courseDemoVideoLink,
     courseStatus,
     courseParticipants,
     courseTags,
-    courseParticipantsLimit,
-    courseParticipantsCount,
   } = values;
 
   const preload = async () => {
+    console.log("courseId", courseId);
     await getCourse(courseId).then((data) => {
+      console.log(data);
       if (data.error) {
         setError(data.error);
       } else {
@@ -100,7 +99,7 @@ const UpdateCourses = () => {
           bannerPhoto: data.bannerPhoto,
           courseDescriptionImage: data.courseDescriptionImage,
           courseOrganizer: data.courseOrganizer,
-          courseYoutubeLink: data.courseYoutubeLink,
+          courseDemoVideoLink: data.courseDemoVideoLink,
           courseStatus: data.courseStatus,
           courseParticipants: data.courseParticipants,
           courseTags: data.courseTags,
@@ -148,7 +147,6 @@ const UpdateCourses = () => {
 
   const onSubmit = async (course) => {
     if (isAutheticated()) {
-      course.prcourseDefault();
       await updateCourse(courseId, token, values).then((data) => {
         console.log(data);
         if (data.error) {
@@ -266,12 +264,12 @@ const UpdateCourses = () => {
             <OutlinedInput
               required
               fullWidth
-              id="courseYoutubeLink"
+              id="courseDemoVideoLink"
               label="Youtube Link"
-              autoComplete="courseYoutubeLink"
+              autoComplete="courseDemoVideoLink"
               variant="outlined"
-              value={courseYoutubeLink}
-              onChange={handleChange("courseYoutubeLink")}
+              value={courseDemoVideoLink}
+              onChange={handleChange("courseDemoVideoLink")}
             />
           </FormControl>
         </Grid>

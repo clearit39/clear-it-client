@@ -17,7 +17,6 @@ import Studymaterialiit from './Components/Studymaterialiit';
 import Studymaterialneet from './Components/Studymaterialneet';
 import Testseries from './views/TestSeries/Testseries';
 import Login from './views/Auth/Login';
-import Logout from './views/Auth/Logout';
 import Signup from './views/Auth/Signup';
 import Profile from './Components/Profile';
 import Footer from './Components/base/Footer';
@@ -61,7 +60,14 @@ const Routing = ()=>{
         }
       />
 
-      <Route path="/updateCourse" element={<UpdateCourse />} />
+      <Route
+        path="/updateCourse/:courseId"
+        element={
+          <AdminRoute>
+            <UpdateCourse />
+          </AdminRoute>
+        }
+      />
       <Route exact path="/" element={<Home />} />
       <Route path="/about" element={<About />} />
       <Route path="/contact" element={<Contact />} />
@@ -72,7 +78,6 @@ const Routing = ()=>{
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
       <Route path="/profile" element={<Profile />} />
-      <Route path="/logout" element={<Logout />} />
       <Route path="/payment" element={<PaymentGateway />} />
     </Routes>
     // </BrowserRouter>

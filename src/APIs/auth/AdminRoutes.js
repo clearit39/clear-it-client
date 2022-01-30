@@ -8,7 +8,7 @@ import { auto } from "@popperjs/core";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
-    paddingTop: "100px",
+    paddingTop: "10px",
     paddingBottom: "70px",
     marginRight: auto,
     marginLeft: auto,

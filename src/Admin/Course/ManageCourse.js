@@ -59,9 +59,9 @@ const ManageCourse = () => {
   const handleClose = () => setOpen(false);
 
   const getAllCourses = async () => {
-    // await getCourses().then((data) => {
-    //   setRows(data);
-    // });
+    await getCourses().then((data) => {
+      setRows(data);
+    });
   };
 
   React.useEffect(() => {
