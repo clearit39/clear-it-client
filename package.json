@@ -44,5 +44,9 @@
             "last 1 firefox version",
             "last 1 safari version"
         ]
-    }
+    },
+    "main": "index.js",
+    "repository": "https://github.com/clearit39/clear-it-client.git",
+    "author": "Lovish Tater <lovishtater@gmail.com>",
+    "license": "MIT"
 }
