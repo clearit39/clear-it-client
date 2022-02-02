@@ -22,66 +22,85 @@ import Profile from './Components/Profile';
 import Footer from './Components/base/Footer';
 // import ErrorPage from './Components/base/ErrorPage';
 import ScrollButton from './Components/ScrollButton';
-import AddCourse from "./Admin/Course/AddCourse";
-import UpdateCourse from "./Admin/Course/UpdateCourse";
-import { initialState,reducer } from './reducer/UseReducer';
-import PrivateRoute from "./APIs/auth/PrivateRoutes"
-import AdminRoute from "./APIs/auth/AdminRoutes"
-import ManageCourse from "./Admin/Course/ManageCourse";
-import PaymentGateway from "./views/payment/PaymentGateway";
-import TeacherDashboard from "./Admin/TeacherPortal";
-export const UserContext = createContext();
-const Routing = ()=>{
-  return (
-    // <BrowserRouter>
-    <Routes>
-      <Route
-        path="/createCourse"
-        element={
-          <AdminRoute>
-            <AddCourse />
-          </AdminRoute>
-        }
-      />
-      <Route
-        path="/manageCourse"
-        element={
-          <AdminRoute>
-            <ManageCourse />
-          </AdminRoute>
-        }
-      />
-      <Route
-        path="/teacherDashboard"
-        element={
-          <AdminRoute>
-            <TeacherDashboard />
-          </AdminRoute>
-        }
-      />
+import AddCourse from './Admin/Course/AddCourse';
+import UpdateCourse from './Admin/Course/UpdateCourse';
+import { initialState, reducer } from './reducer/UseReducer';
+import PrivateRoute from './APIs/auth/PrivateRoutes';
+import AdminRoute from './APIs/auth/AdminRoutes';
+import ManageCourse from './Admin/Course/ManageCourse';
+import PaymentGateway from './views/payment/PaymentGateway';
+import TeacherDashboard from './Admin/TeacherPortal';
+import AddQuestions from './Admin/Questions/AddQuestions';
+import ManageQuestions from './Admin/Questions/ManageQuestions';
 
-      <Route
-        path="/updateCourse/:courseId"
-        element={
-          <AdminRoute>
-            <UpdateCourse />
-          </AdminRoute>
-        }
-      />
-      <Route exact path="/" element={<Home />} />
-      <Route path="/about" element={<About />} />
-      <Route path="/contact" element={<Contact />} />
-      <Route path="/studymaterial" element={<Studymaterial />} />
-      <Route path="/studymaterial/iit" element={<Studymaterialiit />} />
-      <Route path="/studymaterial/neet" element={<Studymaterialneet />} />
-      <Route path="/testseries" element={<Testseries />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/signup" element={<Signup />} />
-      <Route path="/profile" element={<Profile />} />
-      <Route path="/payment" element={<PaymentGateway />} />
-    </Routes>
-    // </BrowserRouter>
-  );
+export const UserContext = createContext();
+const Routing = () => {
+	return (
+		// <BrowserRouter>
+		<Routes>
+			<Route
+				path="/createCourse"
+				element={
+					<AdminRoute>
+						<AddCourse />
+					</AdminRoute>
+				}
+			/>
+			<Route
+				path="/createQuestion"
+				element={
+					<AdminRoute>
+						<AddQuestions />
+					</AdminRoute>
+				}
+			/>
+			<Route
+				path="/manageCourse"
+				element={
+					<AdminRoute>
+						<ManageCourse />
+					</AdminRoute>
+				}
+			/>
+			<Route
+				path="/manageQuestions"
+				element={
+					<AdminRoute>
+						<ManageQuestions />
+					</AdminRoute>
+				}
+			/>
+			<Route
+				path="/teacherDashboard"
+				element={
+					<AdminRoute>
+						<TeacherDashboard />
+					</AdminRoute>
+				}
+			/>
+
+			<Route
+				path="/updateCourse/:courseId"
+				element={
+					<AdminRoute>
+						<UpdateCourse />
+					</AdminRoute>
+				}
+			/>
+			<Route exact path="/" element={<Home />} />
+			<Route path="/about" element={<About />} />
+			<Route path="/contact" element={<Contact />} />
+			<Route path="/studymaterial" element={<Studymaterial />} />
+			<Route path="/studymaterial/iit" element={<Studymaterialiit />} />
+			<Route path="/studymaterial/neet" element={<Studymaterialneet />} />
+			<Route path="/testseries" element={<Testseries />} />
+			<Route path="/login" element={<Login />} />
+			<Route path="/signup" element={<Signup />} />
+			<Route path="/profile" element={<Profile />} />
+			<Route path="/payment" element={<PaymentGateway />} />
+		</Routes>
+		// </BrowserRouter>
+	);
 };
 const App = () => {
 	const [state, dispatch] = useReducer(reducer, initialState);
