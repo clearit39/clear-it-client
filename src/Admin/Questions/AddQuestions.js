@@ -24,6 +24,8 @@ import {
 } from '@mui/material';
 import { Add, SettingsEthernet } from '@mui/icons-material';
 
+import { createQuestion } from '../../APIs/QuestionsAPIcall';
+
 const useStyles = makeStyles((theme) => ({
 	button: {
 		margin: theme.spacing(1),
@@ -49,71 +51,31 @@ const AddQuestions = () => {
 	const { qNo, title, answer, options, examName, testName, subjectName } =
 		values;
 
-	// const uploadCourseImage = async () => {
-	// 	if (values.courseImage) {
-	// 		const storageRef = firebase
-	// 			.storage()
-	// 			.ref(`/courseImages/${courseName + courseDate}/${values.courseImage.name}`);
-	// 		const uploadTask = storageRef.put(values.courseImage);
-	// 		uploadTask.on(
-	// 			'state_changed',
-	// 			(snapshot) => {
-	// 				// progress function ...
-	// 				const progress = Math.round(
-	// 					(snapshot.bytesTransferred / snapshot.totalBytes) * 100
-	// 				);
-	// 				setLoading(progress);
-	// 			},
-	// 			(error) => {
-	// 				// Error function ...
-	// 				console.log(error);
-	// 			},
-	// 			() => {
-	// 				// complete function ...
-	// 				uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
-	// 					setValues({ ...values, courseImage: downloadURL });
-	// 				});
-	// 				console.log('Course Image Uploaded');
-	// 			}
-	// 		);
-	// 	}
-	// };
-
-	// const handleCoursePicture = (name) => (course) => {
-	// 	const file = course.target.files[0];
-	// 	setValues({ ...values, [name]: file });
-	// };
-
 	const onSubmit = async (course) => {
 		if (isAutheticated()) {
-			// await createCourse(user._id, values, token).then((data) => {
-			// 	console.log(data);
-			// 	if (data.error) {
-			// 		setError(data.error);
-			// 	} else {
-			// 		setValues({
-			// 			...values,
-			// 			courseName: '',
-			// 			courseDescription: '',
-			// 			courseDate: '',
-			// 			courseLocation: '',
-			// 			courseImage: '',
-			// 			bannerPhoto: '',
-			// 			courseDescriptionImage: '',
-			// 			courseDemoVideoLink: '',
-			// 			courseOrganizer: '',
-			// 			courseStatus: '',
-			// 			courseParticipants: [],
-			// 			courseTags: [],
-			// 			getaRedirect: false,
-			// 			courseParticipantsLimit: '',
-			// 		});
-			// 		setError(false);
-			// 		alert('Course Created Successfully');
-			// 	}
-			// });
+			console.log('values', values);
+
+			await createQuestion(values).then((data) => {
+				console.log(data);
+				if (data.error) {
+					setError(data.error);
+				} else {
+					setValues({
+						...values,
+						qNo: '',
+						title: '',
+						answer: '',
+						options: [],
+						examName: '',
+						testName: '',
+						subjectName: '',
+					});
+					setError(false);
+					alert('Question Uploaded Successfully');
+				}
+			});
 		} else {
-			alert('Please Login to Create Course');
+			alert('Question Upload Failed!!');
 		}
 	};
 
@@ -209,7 +171,7 @@ const AddQuestions = () => {
 										onClick={() => {
 											setValues({
 												...values,
-												courseTags: [...values.options, tempTags],
+												options: [...values.options, tempTags],
 											});
 											setTempTags('');
 										}}>
