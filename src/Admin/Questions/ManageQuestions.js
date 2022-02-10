@@ -52,9 +52,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const columns = [
-	{ id: 'courseName', label: 'Course Name', minWidth: 170 },
-	{ id: 'courseParticipants', label: 'Registration', minWidth: 50 },
-	{ id: 'courseTime', label: 'Time', minWidth: 170 },
+	{ id: 'title', label: 'Title', minWidth: 170 },
+	{ id: 'testName', label: 'Test Name', minWidth: 50 },
+	{ id: 'subjectName', label: 'Subject', minWidth: 170 },
 ];
 
 const ManageQuestions = () => {
@@ -145,7 +145,7 @@ const ManageQuestions = () => {
 												<TableCell>
 													<IconButton
 														aria-label="edit"
-														href={`/updateCourse/${row._id}`}
+														href={`/updateQuestion/${row._id}`}
 														color="primary">
 														<EditIcon />
 													</IconButton>
@@ -173,7 +173,7 @@ const ManageQuestions = () => {
 												})}
 											</TableRow>
 											<TableRow>
-												<TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={8}>
+												{/* <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={8}>
 													<Collapse in={open} timeout="auto" unmountOnExit>
 														<Box sx={{ margin: 1 }}>
 															<Typography variant="h6" gutterBottom component="div">
@@ -188,7 +188,7 @@ const ManageQuestions = () => {
 																	</TableRow>
 																</TableHead>
 																<TableBody>
-																	{row.courseParticipants.map((participant) => (
+																	{/* {row.courseParticipants.map((participant) => (
 																		<TableRow key={participant}>
 																			<TableCell component="th" scope="row">
 																				{participant}
@@ -196,12 +196,13 @@ const ManageQuestions = () => {
 																			<TableCell>Not Available</TableCell>
 																			<TableCell>Not Available</TableCell>
 																		</TableRow>
-																	))}
-																</TableBody>
-															</Table>
-														</Box>
-													</Collapse>
-												</TableCell>
+																	))} */}
+												{/* </TableBody> */}
+
+												{/* </Table> */}
+												{/* </Box> */}
+												{/* </Collapse> */}
+												{/* </TableCell>  */}
 											</TableRow>
 										</>
 									);

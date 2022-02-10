@@ -32,6 +32,7 @@ import PaymentGateway from './views/payment/PaymentGateway';
 import TeacherDashboard from './Admin/TeacherPortal';
 import AddQuestions from './Admin/Questions/AddQuestions';
 import ManageQuestions from './Admin/Questions/ManageQuestions';
+import UpdateQuestion from './Admin/Questions/UpdateQuestion';
 
 export const UserContext = createContext();
 const Routing = () => {
@@ -84,6 +85,14 @@ const Routing = () => {
 				element={
 					<AdminRoute>
 						<UpdateCourse />
+					</AdminRoute>
+				}
+			/>
+			<Route
+				path="/updateQuestion/:questionId"
+				element={
+					<AdminRoute>
+						<UpdateQuestion />
 					</AdminRoute>
 				}
 			/>

@@ -22,17 +22,21 @@ import {
 	IconButton,
 	Alert,
 	CircularProgress,
-  List,
-  ListItem,
-  ListItemText,
-  ListItemIcon,
-  ListItemButton,
-  ListSubheader,
-  Collapse,
-  ListItemAvatar,
+	List,
+	ListItem,
+	ListItemText,
+	ListItemIcon,
+	ListItemButton,
+	ListSubheader,
+	Collapse,
+	ListItemAvatar,
 } from '@mui/material';
-import { Add, SettingsEthernet,
-ExpandLess, ExpandMore, StarBorder
+import {
+	Add,
+	SettingsEthernet,
+	ExpandLess,
+	ExpandMore,
+	StarBorder,
 } from '@mui/icons-material';
 
 const useStyles = makeStyles((theme) => ({
@@ -47,65 +51,58 @@ const AddCourse = () => {
 	const [tempTags, setTempTags] = useState('');
 	const [error, setError] = useState(false);
 	const [loading, setLoading] = useState();
-	const [sectionData, setSectionData] = useState([{
-		sectionName: '',
-		sectionDescription: '',
-		sectionImage: '',
-		sectionVideos: [{
-			videoName: '',
-			videoDescription: '',
-			videoLink: '',
-			videoThumbnail: '',
-		}],
-	}]);
+	const [sectionData, setSectionData] = useState([
+		{
+			sectionName: '',
+			sectionDescription: '',
+			sectionImage: '',
+			sectionVideos: [],
+		},
+	]);
 
-  const [videoData, setVideoData] = useState(
-          {
-            videoName: "",
-            videoDescription: "",
-            videoLink: "",
-            videoThumbnail: "",
-          }
-)
+	const handleAddSection = () => {
+		// 	setSectionData([
+		// 		...sectionData,
+		// 		{
+		// 			sectionName: '',
+		// 			sectionDescription: '',
+		// 			sectionImage: '',
+		// 			sectionVideos: [videoData],
+		// 		},
+		// 	]);
+	};
 
-	const handleChangeSection = (name) => (course) => {
-    setSectionData({
-				...sectionData,
-				[name]: course.target.value
-	})
-    console.log(sectionData);
-  };
+	const [videoData, setVideoData] = useState({
+		videoName: '',
+		videoDescription: '',
+		videoLink: '',
+		videoThumbnail: '',
+	});
+
+	// const handleVideoData = (name) => (value) => {
+	// 	setVideoData({
+	// 		...videoData,
+	// 		[name]: value,
+	// 	});
+	// };
+
 	const [values, setValues] = useState({
-    courseName: "",
-    courseDescription: "",
-    courseDate: "",
-    courseLocation: "",
-    courseImage: "",
-    bannerPhoto: "",
-    courseDescriptionImage: "",
-    courseSection: [
-      {
-        sectionName: "",
-        sectionDescription: "",
-        sectionImage: "",
-        sectionVideos: [
-          {
-            videoName: "",
-            videoDescription: "",
-            videoLink: "",
-            videoThumbnail: "",
-          },
-        ],
-      },
-    ],
-    courseOrganizer: "",
-    courseOrganizerId: user._id,
-    courseStatus: "",
-    courseDemoVideoLink: "",
-    courseParticipants: [],
-    courseTags: [],
-    courseParticipantsLimit: "",
-  });
+		courseName: '',
+		courseDescription: '',
+		courseDate: '',
+		courseLocation: '',
+		courseImage: '',
+		bannerPhoto: '',
+		courseDescriptionImage: '',
+		courseSection: [sectionData],
+		courseOrganizer: '',
+		courseOrganizerId: user._id,
+		courseStatus: '',
+		courseDemoVideoLink: '',
+		courseParticipants: [],
+		courseTags: [],
+		courseParticipantsLimit: '',
+	});
 
 	const {
 		courseName,
@@ -119,9 +116,6 @@ const AddCourse = () => {
 		courseParticipants,
 		courseTags,
 	} = values;
-
-
-
 
 	const uploadCourseImage = async () => {
 		if (values.courseImage) {
@@ -153,9 +147,18 @@ const AddCourse = () => {
 		}
 	};
 
-  const addVideotosection = () => {
-    setValues({ ...values, courseSection: [...values.courseSection, { ...values.courseSection[0] , sectionVideos: [...values.courseSection[0].sectionVideos , videoData] }] });
-  }
+	const addVideotosection = () => {
+		setValues({
+			...values,
+			courseSection: [
+				...values.courseSection,
+				{
+					...values.courseSection[0],
+					sectionVideos: [...values.courseSection[0].sectionVideos, videoData],
+				},
+			],
+		});
+	};
 
 	const handleCoursePicture = (name) => (course) => {
 		const file = course.target.files[0];
@@ -199,167 +202,140 @@ const AddCourse = () => {
 		setValues({ ...values, [name]: course.target.value });
 	};
 
-  const handleAddSection = name => (event) => {
-    setValues({ ...values, courseSection: [...values.courseSection , { [name]: event }] });
-  };
-
-  const handleAddVideo = name => (event) => {
-    setValues({ ...values, 
-      courseSection: [...values.courseSection , 
-      { ...values.courseSection[name], 
-      sectionVideos: [...values.courseSection[name].sectionVideos , { [name]: event }] }] });
-  };
-
-
-  const [selectedIndex, setSelectedIndex] = React.useState([]);
-  const handleChangeSelectedIndex = (event) => {
-    if (event === selectedIndex) {
-      setSelectedIndex([]);
-    } else {
-      setSelectedIndex(event);
-    }
-  };
-
-  const handleVideoFile = (name) => (course) => {
-    const file = course.target.files[0];
-    setSectionData({ ...sectionData, [name]: file });
-  };
-
-  const handleChangeVideo = (name) => (course) => {
-    setSectionData({ ...sectionData, [name]: course.target.value });
-  };
-
-
+	const columns = [
+		{ id: 'courseName', label: 'Course Name', minWidth: 170 },
+		{ id: 'courseParticipants', label: 'Registration', minWidth: 50 },
+		{ id: 'courseTime', label: 'Time', minWidth: 170 },
+	];
 
 	return (
-    <>
-      <Typography variant="h4" gutterBottom>
-        Add Course
-        <br />
-        <Alert severity="info">
-          Please enter Course name before uploading Images
-        </Alert>
-      </Typography>
-      <Grid container spacing={3}>
-        <Grid item xs={12} sm={2}>
-          <Typography variant="body1" color="initial">
-            Course Name
-          </Typography>
-        </Grid>
-        <Grid item xs={12} sm={9}>
-          <FormControl variant="outlined" fullWidth>
-            <InputLabel>Course Name</InputLabel>
-            <OutlinedInput
-              required
-              fullWidth
-              id="courseName"
-              label="Course Name"
-              autoComplete="courseName"
-              variant="outlined"
-              value={courseName}
-              onChange={handleChange("courseName")}
-            />
-          </FormControl>
-        </Grid>
-        <Grid item xs={12} sm={2}>
-          <Typography variant="body1" color="initial">
-            Course Description
-          </Typography>
-        </Grid>
-        <Grid item xs={12} sm={9}>
-          <FormControl variant="outlined" fullWidth>
-            <TextField
-              rows={6}
-              required
-              fullWidth
-              multiline
-              id="courseDescription"
-              label="Course Description"
-              autoComplete="courseDescription"
-              variant="outlined"
-              value={courseDescription}
-              onChange={handleChange("courseDescription")}
-            />
-          </FormControl>
-        </Grid>
+		<>
+			<Typography variant="h4" gutterBottom>
+				Add Course
+				<br />
+				<Alert severity="info">
+					Please enter Course name before uploading Images
+				</Alert>
+			</Typography>
+			<Grid container spacing={3}>
+				<Grid item xs={12} sm={2}>
+					<Typography variant="body1" color="initial">
+						Course Name
+					</Typography>
+				</Grid>
+				<Grid item xs={12} sm={9}>
+					<FormControl variant="outlined" fullWidth>
+						<InputLabel>Course Name</InputLabel>
+						<OutlinedInput
+							required
+							fullWidth
+							id="courseName"
+							label="Course Name"
+							autoComplete="courseName"
+							variant="outlined"
+							value={courseName}
+							onChange={handleChange('courseName')}
+						/>
+					</FormControl>
+				</Grid>
+				<Grid item xs={12} sm={2}>
+					<Typography variant="body1" color="initial">
+						Course Description
+					</Typography>
+				</Grid>
+				<Grid item xs={12} sm={9}>
+					<FormControl variant="outlined" fullWidth>
+						<TextField
+							rows={6}
+							required
+							fullWidth
+							multiline
+							id="courseDescription"
+							label="Course Description"
+							autoComplete="courseDescription"
+							variant="outlined"
+							value={courseDescription}
+							onChange={handleChange('courseDescription')}
+						/>
+					</FormControl>
+				</Grid>
 
-        <Grid item xs={12} sm={2}>
-          <Typography variant="body1" color="initial">
-            Course Organizer
-          </Typography>
-        </Grid>
-        <Grid item xs={12} sm={10}>
-          <FormControl variant="outlined" fullWidth>
-            <InputLabel>Course Organizer</InputLabel>
-            <OutlinedInput
-              required
-              fullWidth
-              id="courseOrganizer"
-              label="Course Organizer"
-              autoComplete="courseOrganizer"
-              variant="outlined"
-              value={courseOrganizer}
-              onChange={handleChange("courseOrganizer")}
-            />
-          </FormControl>
-        </Grid>
-        <Grid item xs={12} sm={2}>
-          <Typography variant="body1" color="initial">
-            Course Video Demo Link
-          </Typography>
-        </Grid>
-        <Grid item xs={12} sm={10}>
-          <FormControl variant="outlined" fullWidth>
-            <InputLabel>Video link </InputLabel>
-            <OutlinedInput
-              required
-              fullWidth
-              id="courseDemoVideoLink"
-              label="Video Demo Link"
-              autoComplete="courseDemoVideoLink"
-              variant="outlined"
-              value={courseDemoVideoLink}
-              onChange={handleChange("courseDemoVideoLink")}
-            />
-          </FormControl>
-        </Grid>
-        <Grid item xs={12} sm={2}>
-          <Typography variant="body1" color="initial">
-            Course Image
-          </Typography>
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <FormControl variant="outlined" fullWidth>
-            <input
-              type="file"
-              name="courseImage"
-              onChange={handleCoursePicture("courseImage")}
-            />
-          </FormControl>
-        </Grid>
-        <Grid item xs={12} sm={4}>
-          {loading && (
-            <CircularProgress
-              variant="determinate"
-              sx={{ height: "20px", mr: 2 }}
-              className={classes.progress}
-            />
-          )}
-          <Button
-            variant="outlined"
-            color="primary"
-            onClick={uploadCourseImage}
-            className={classes.button}
-          >
-            Upload
-          </Button>
-        </Grid>
-        <Grid item xs={12} sm={2}>
-          <Typography variant="body1" color="initial">
-          Section Name 
-          </Typography>
-        </Grid>
-        {/* <Grid item xs={12} sm={10}>
+				<Grid item xs={12} sm={2}>
+					<Typography variant="body1" color="initial">
+						Course Organizer
+					</Typography>
+				</Grid>
+				<Grid item xs={12} sm={10}>
+					<FormControl variant="outlined" fullWidth>
+						<InputLabel>Course Organizer</InputLabel>
+						<OutlinedInput
+							required
+							fullWidth
+							id="courseOrganizer"
+							label="Course Organizer"
+							autoComplete="courseOrganizer"
+							variant="outlined"
+							value={courseOrganizer}
+							onChange={handleChange('courseOrganizer')}
+						/>
+					</FormControl>
+				</Grid>
+				<Grid item xs={12} sm={2}>
+					<Typography variant="body1" color="initial">
+						Course Video Demo Link
+					</Typography>
+				</Grid>
+				<Grid item xs={12} sm={10}>
+					<FormControl variant="outlined" fullWidth>
+						<InputLabel>Video link </InputLabel>
+						<OutlinedInput
+							required
+							fullWidth
+							id="courseDemoVideoLink"
+							label="Video Demo Link"
+							autoComplete="courseDemoVideoLink"
+							variant="outlined"
+							value={courseDemoVideoLink}
+							onChange={handleChange('courseDemoVideoLink')}
+						/>
+					</FormControl>
+				</Grid>
+				<Grid item xs={12} sm={2}>
+					<Typography variant="body1" color="initial">
+						Course Image
+					</Typography>
+				</Grid>
+				<Grid item xs={12} sm={6}>
+					<FormControl variant="outlined" fullWidth>
+						<input
+							type="file"
+							name="courseImage"
+							onChange={handleCoursePicture('courseImage')}
+						/>
+					</FormControl>
+				</Grid>
+				<Grid item xs={12} sm={4}>
+					{loading && (
+						<CircularProgress
+							variant="determinate"
+							sx={{ height: '20px', mr: 2 }}
+							className={classes.progress}
+						/>
+					)}
+					<Button
+						variant="outlined"
+						color="primary"
+						onClick={uploadCourseImage}
+						className={classes.button}>
+						Upload
+					</Button>
+				</Grid>
+				<Grid item xs={12} sm={2}>
+					<Typography variant="body1" color="initial">
+						Section Name
+					</Typography>
+				</Grid>
+				{/* <Grid item xs={12} sm={10}>
           <FormControl variant="outlined" fullWidth>  
             <InputLabel>Section Name</InputLabel> 
            <OutlinedInput
@@ -413,83 +389,72 @@ const AddCourse = () => {
               />
           </FormControl>
         </Grid> */}
-        <Grid item xs={12} sm={2}>
-          <Typography variant="body1" color="initial">
-          Video 
-          </Typography>
-        </Grid>
-        <Grid item xs={12} sm={10}>
-          <input
-            type="file"
-            name="videoLink"
-            onChange={handleAddSection("videoLink")}
-          />
-          <Button
-            variant="outlined"
-            color="primary"
-            onClick={addVideotosection}
-            className={classes.button}
-          >
-          add video
-          </Button>
-        </Grid>
-        <Grid item xs={12} sm={2}>
-          <Typography variant="body1" color="initial">
-            Course Tags
-          </Typography>
-        </Grid>
-        <Grid item xs={12} sm={10}>
-          <FormControl variant="outlined" fullWidth sx={{ mt: 1 }}>
-            <InputLabel> Course Tags</InputLabel>
-            <OutlinedInput
-              id=" Course Tags"
-              label=" Course Tags"
-              autoComplete="Course Tags"
-              value={tempTags}
-              onChange={(course) => setTempTags(course.target.value)}
-              endAdornment={
-                <InputAdornment position="end">
-                  <IconButton
-                    edge="end"
-                    onClick={() => {
-                      setValues({
-                        ...values,
-                        courseTags: [...values.courseTags, tempTags],
-                      });
-                      setTempTags("");
-                    }}
-                  >
-                    <Add />
-                  </IconButton>
-                </InputAdornment>
-              }
-            />
-          </FormControl>
-          <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5, mt: 1 }}>
-            {values.courseTags.map((value, index) => {
-              return <Chip key={value} label={value} />;
-            })}
-          </Box>
-        </Grid>
-        <Grid item xs={12} sm={10}>
-          {error && <Alert severity="error">{error.message}</Alert>}
-        </Grid>
-        <Grid item xs={11} sm={10} lg={6} sx={{ m: 1 }}></Grid>
-        <Button variant="contained" color="primary" onClick={onSubmit}>
-          Submit
-        </Button>
-      </Grid>
-    </>
-  );
+				<Grid item xs={12} sm={2}>
+					<Typography variant="body1" color="initial">
+						Video
+					</Typography>
+				</Grid>
+				<Grid item xs={12} sm={10}>
+					<input
+						type="file"
+						name="videoLink"
+						onChange={handleAddSection('videoLink')}
+					/>
+					<Button
+						variant="outlined"
+						color="primary"
+						onClick={addVideotosection}
+						className={classes.button}>
+						add video
+					</Button>
+				</Grid>
+				<Grid item xs={12} sm={2}>
+					<Typography variant="body1" color="initial">
+						Course Tags
+					</Typography>
+				</Grid>
+				<Grid item xs={12} sm={10}>
+					<FormControl variant="outlined" fullWidth sx={{ mt: 1 }}>
+						<InputLabel> Course Tags</InputLabel>
+						<OutlinedInput
+							id=" Course Tags"
+							label=" Course Tags"
+							autoComplete="Course Tags"
+							value={tempTags}
+							onChange={(course) => setTempTags(course.target.value)}
+							endAdornment={
+								<InputAdornment position="end">
+									<IconButton
+										edge="end"
+										onClick={() => {
+											setValues({
+												...values,
+												courseTags: [...values.courseTags, tempTags],
+											});
+											setTempTags('');
+										}}>
+										<Add />
+									</IconButton>
+								</InputAdornment>
+							}
+						/>
+					</FormControl>
+					<Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5, mt: 1 }}>
+						{values.courseTags.map((value, index) => {
+							return <Chip key={value} label={value} />;
+						})}
+					</Box>
+				</Grid>
+				<Grid item xs={12} sm={10}>
+					{error && <Alert severity="error">{error.message}</Alert>}
+				</Grid>
+				<Grid item xs={11} sm={10} lg={6} sx={{ m: 1 }}></Grid>
+				<Button variant="contained" color="primary" onClick={onSubmit}>
+					Submit
+				</Button>
+			</Grid>
+		</>
+	);
 };
 
 export default AddCourse;
-
-const columns = [
-  { id: "courseName", label: "Course Name", minWidth: 170 },
-  { id: "courseParticipants", label: "Registration", minWidth: 50 },
-  { id: "courseTime", label: "Time", minWidth: 170 },
-];
-
-
-
