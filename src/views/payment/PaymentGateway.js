@@ -1,3 +1,4 @@
+import { Button } from '@mui/material';
 import React, { useEffect } from 'react';
 import './styles.css';
 const PaymentGateway = () => {
@@ -5,7 +6,7 @@ const PaymentGateway = () => {
 		key: 'rzp_test_L2VUKbb3RjJxhT',
 		amount: '1000', //  = INR 1
 		name: 'ClearIt',
-		description: 'some description',
+		description: 'Thanks for your payment',
 		image: 'https://cdn.razorpay.com/logos/7K3b6d18wHwKzL_medium.png',
 		// handler is function to handle response
 		handler: function (response) {
@@ -39,7 +40,14 @@ const PaymentGateway = () => {
 
 	return (
 		<>
-			<button onClick={() => openPayModal(options)}>Pay</button>
+			<Button 
+			variant='outlined'
+			sx={{
+				width: '100%',
+				marginTop: '1rem',
+				height: '50px',
+			}}
+			onClick={() => openPayModal(options)}>Pay</Button>
 		</>
 	);
 };

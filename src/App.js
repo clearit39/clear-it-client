@@ -24,6 +24,7 @@ import Footer from './Components/base/Footer';
 import ScrollButton from './Components/ScrollButton';
 import AddCourse from './Admin/Course/AddCourse';
 import UpdateCourse from './Admin/Course/UpdateCourse';
+import CourseAllotment from './Admin/Course/AllotCourse';
 import { initialState, reducer } from './reducer/UseReducer';
 import PrivateRoute from './APIs/auth/PrivateRoutes';
 import AdminRoute from './APIs/auth/AdminRoutes';
@@ -37,79 +38,87 @@ import UpdateQuestion from './Admin/Questions/UpdateQuestion';
 export const UserContext = createContext();
 const Routing = () => {
 	return (
-		// <BrowserRouter>
-		<Routes>
-			<Route
-				path="/createCourse"
-				element={
-					<AdminRoute>
-						<AddCourse />
-					</AdminRoute>
-				}
-			/>
-			<Route
-				path="/createQuestion"
-				element={
-					<AdminRoute>
-						<AddQuestions />
-					</AdminRoute>
-				}
-			/>
-			<Route
-				path="/manageCourse"
-				element={
-					<AdminRoute>
-						<ManageCourse />
-					</AdminRoute>
-				}
-			/>
-			<Route
-				path="/manageQuestions"
-				element={
-					<AdminRoute>
-						<ManageQuestions />
-					</AdminRoute>
-				}
-			/>
-			<Route
-				path="/teacherDashboard"
-				element={
-					<AdminRoute>
-						<TeacherDashboard />
-					</AdminRoute>
-				}
-			/>
+    // <BrowserRouter>
+    <Routes>
+      <Route
+        path="/createCourse"
+        element={
+          <AdminRoute>
+            <AddCourse />
+          </AdminRoute>
+        }
+      />
+      <Route
+        path="/createQuestion"
+        element={
+          <AdminRoute>
+            <AddQuestions />
+          </AdminRoute>
+        }
+      />
+      <Route
+        path="/manageCourse"
+        element={
+          <AdminRoute>
+            <ManageCourse />
+          </AdminRoute>
+        }
+      />
+      <Route
+        path="/manageQuestions"
+        element={
+          <AdminRoute>
+            <ManageQuestions />
+          </AdminRoute>
+        }
+      />
+      <Route
+        path="/teacherDashboard"
+        element={
+          <AdminRoute>
+            <TeacherDashboard />
+          </AdminRoute>
+        }
+      />
+	        <Route
+        path="/courseAllotment"
+        element={
+          <AdminRoute>
+            <CourseAllotment />
+          </AdminRoute>
+        }
+      />
 
-			<Route
-				path="/updateCourse/:courseId"
-				element={
-					<AdminRoute>
-						<UpdateCourse />
-					</AdminRoute>
-				}
-			/>
-			<Route
-				path="/updateQuestion/:questionId"
-				element={
-					<AdminRoute>
-						<UpdateQuestion />
-					</AdminRoute>
-				}
-			/>
-			<Route exact path="/" element={<Home />} />
-			<Route path="/about" element={<About />} />
-			<Route path="/contact" element={<Contact />} />
-			<Route path="/studymaterial" element={<Studymaterial />} />
-			<Route path="/studymaterial/iit" element={<Studymaterialiit />} />
-			<Route path="/studymaterial/neet" element={<Studymaterialneet />} />
-			<Route path="/testseries" element={<Testseries />} />
-			<Route path="/login" element={<Login />} />
-			<Route path="/signup" element={<Signup />} />
-			<Route path="/profile" element={<Profile />} />
-			<Route path="/payment" element={<PaymentGateway />} />
-		</Routes>
-		// </BrowserRouter>
-	);
+      <Route
+        path="/updateCourse/:courseId"
+        element={
+          <AdminRoute>
+            <UpdateCourse />
+          </AdminRoute>
+        }
+      />
+      <Route
+        path="/updateQuestion/:questionId"
+        element={
+          <AdminRoute>
+            <UpdateQuestion />
+          </AdminRoute>
+        }
+      />
+      <Route exact path="/" element={<Home />} />
+      <Route path="/about" element={<About />} />
+      <Route path="/contact" element={<Contact />} />
+      <Route path="/studymaterial" element={<Studymaterial />} />
+      <Route path="/studymaterial/iit" element={<Studymaterialiit />} />
+      <Route path="/studymaterial/neet" element={<Studymaterialneet />} />
+      <Route path="/testseries" element={<Testseries />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/signup" element={<Signup />} />
+      <Route path="/profile" element={<Profile />} />
+      <Route path="/payment" element={<PaymentGateway />} />
+    </Routes>
+    // </BrowserRouter>
+  );
 };
 const App = () => {
 	const [state, dispatch] = useReducer(reducer, initialState);
