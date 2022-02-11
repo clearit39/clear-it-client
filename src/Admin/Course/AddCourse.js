@@ -51,40 +51,24 @@ const AddCourse = () => {
 	const [tempTags, setTempTags] = useState('');
 	const [error, setError] = useState(false);
 	const [loading, setLoading] = useState();
-	const [sectionData, setSectionData] = useState([
-		{
-			sectionName: '',
-			sectionDescription: '',
-			sectionImage: '',
-			sectionVideos: [],
-		},
-	]);
 
-	const handleAddSection = () => {
-		// 	setSectionData([
-		// 		...sectionData,
-		// 		{
-		// 			sectionName: '',
-		// 			sectionDescription: '',
-		// 			sectionImage: '',
-		// 			sectionVideos: [videoData],
-		// 		},
-		// 	]);
-	};
-
-	const [videoData, setVideoData] = useState({
-		videoName: '',
-		videoDescription: '',
-		videoLink: '',
-		videoThumbnail: '',
+	const [section, setSection] = useState({
+		newhosts: [
+			{
+				sectionName: '',
+				sectionDescription: '',
+				sectionImage: '',
+				sectionVideos: [
+					{
+						videoName: '',
+						videoDescription: '',
+						videoLink: '',
+						videoThumbnail: '',
+					},
+				],
+			},
+		],
 	});
-
-	// const handleVideoData = (name) => (value) => {
-	// 	setVideoData({
-	// 		...videoData,
-	// 		[name]: value,
-	// 	});
-	// };
 
 	const [values, setValues] = useState({
 		courseName: '',
@@ -94,7 +78,7 @@ const AddCourse = () => {
 		courseImage: '',
 		bannerPhoto: '',
 		courseDescriptionImage: '',
-		courseSection: [sectionData],
+		courseSection: section.newhosts,
 		courseOrganizer: '',
 		courseOrganizerId: user._id,
 		courseStatus: '',
@@ -147,19 +131,6 @@ const AddCourse = () => {
 		}
 	};
 
-	const addVideotosection = () => {
-		setValues({
-			...values,
-			courseSection: [
-				...values.courseSection,
-				{
-					...values.courseSection[0],
-					sectionVideos: [...values.courseSection[0].sectionVideos, videoData],
-				},
-			],
-		});
-	};
-
 	const handleCoursePicture = (name) => (course) => {
 		const file = course.target.files[0];
 		setValues({ ...values, [name]: file });
@@ -207,6 +178,210 @@ const AddCourse = () => {
 		{ id: 'courseParticipants', label: 'Registration', minWidth: 50 },
 		{ id: 'courseTime', label: 'Time', minWidth: 170 },
 	];
+
+	const handleOnChange = (event, hostindex, layer, softwareIndex) => {
+		const { newhosts } = section;
+		const copiedHosts = [...newhosts];
+		const updatedHosts = copiedHosts.map((host, index) => {
+			//find mathcing index to update that item
+			if (hostindex === index) {
+				//determine what layer of data we need to update
+				if (layer === 1) {
+					//we need to update activityState, platform etc...
+					return {
+						...host,
+						[event.target.name]: event.target.value,
+					};
+				} else if (layer === 2) {
+					//now we need to find the matching software item to update
+					let updatedSoftware = copiedHosts[hostindex].software.map(
+						(software, sIndex) => {
+							if (softwareIndex === sIndex) {
+								return {
+									...software,
+									[event.target.name]: event.target.value,
+								};
+							} else {
+								return {
+									...software,
+								};
+							}
+						}
+					);
+					return {
+						...host,
+						software: updatedSoftware,
+					};
+				} else if (layer === 3) {
+					//now we need to find the matching software item to update
+					let updatedSoftware = copiedHosts[hostindex].software.map(
+						(software, sIndex) => {
+							if (softwareIndex === sIndex) {
+								return {
+									...software,
+									vulnerability: {
+										...software.vulnerability,
+										[event.target.name]: event.target.value,
+									},
+								};
+							} else {
+								return {
+									...software,
+								};
+							}
+						}
+					);
+					return {
+						...host,
+						software: updatedSoftware,
+					};
+				}
+			} else {
+				//return all other hosts
+				return host;
+			}
+		});
+		setSection({
+			newhosts: updatedHosts,
+		});
+	};
+
+	const createNewHostsForm = () => {
+		const { newhosts } = section;
+
+		return newhosts.map((host, hostIndex) => {
+			return (
+				<div>
+					<h4>{`Section ${hostIndex + 1}`}</h4>
+					{Object.entries(host).map(([key, value], lvl1Index) => {
+						if (Array.isArray(value)) {
+							const secondLayerInputs = [...value];
+							return (
+								<div>
+									<strong>Videos:</strong>
+									{secondLayerInputs.map((input, softwareIndex) => {
+										return Object.entries(input).map(([lvl2Key, lvl2Value]) => {
+											if (typeof lvl2Value === 'string') {
+												return (
+													<div>
+														<label>{lvl2Key}</label>{' '}
+														<input
+															value={lvl2Value}
+															name={lvl2Key}
+															onChange={(e) => handleOnChange(e, hostIndex, 2, softwareIndex)}
+														/>
+													</div>
+												);
+											} else {
+												const thirdLayerInputs = { ...lvl2Value };
+												return Object.entries(thirdLayerInputs).map(
+													([lvl3Key, lvl3Value]) => {
+														return (
+															<div>
+																<label>{lvl3Key}</label>{' '}
+																<input
+																	name={lvl3Key}
+																	value={lvl3Value}
+																	onChange={(e) =>
+																		handleOnChange(e, hostIndex, 3, softwareIndex)
+																	}
+																/>
+															</div>
+														);
+													}
+												);
+											}
+										});
+									})}
+									<button onClick={() => addSoftwareToHost(hostIndex)}>
+										Add Videos
+									</button>
+								</div>
+							);
+						} else {
+							return (
+								<div>
+									<label>{key}</label>{' '}
+									<input
+										value={value}
+										onChange={(e) => handleOnChange(e, hostIndex, 1)}
+										name={key}
+									/>
+								</div>
+							);
+						}
+					})}
+				</div>
+			);
+		});
+	};
+
+	const addNewHost = () => {
+		const newHostObj = {
+			activityState: '',
+			platform: '',
+			pushDate: '',
+			name: '',
+			ip: '',
+			software: [
+				{
+					vulnerability: {
+						link: '',
+						desc: '',
+						cvss: '',
+						cve: '',
+					},
+					vulnerable: '',
+					cpe: '',
+					version: '',
+					vendor: '',
+					name: '',
+				},
+			],
+		};
+		setSection({
+			newhosts: [...section.newhosts, newHostObj],
+		});
+	};
+
+	const addSoftwareToHost = (hostIndex) => {
+		const { newhosts } = section;
+		const copiedHosts = [...newhosts];
+		const newSoftwareObj = {
+			vulnerability: {
+				link: '',
+				desc: '',
+				cvss: '',
+				cve: '',
+			},
+			vulnerable: '',
+			cpe: '',
+			version: '',
+			vendor: '',
+			name: '',
+		};
+
+		const updatedHosts = copiedHosts.map((host, index) => {
+			if (hostIndex === index) {
+				return {
+					...host,
+					software: [...host.software, newSoftwareObj],
+				};
+			} else {
+				return {
+					...host,
+				};
+			}
+		});
+
+		setSection({
+			newhosts: updatedHosts,
+		});
+	};
+
+	const handleSubmit = () => {
+		console.log(section.newhosts);
+	};
 
 	return (
 		<>
@@ -330,84 +505,15 @@ const AddCourse = () => {
 						Upload
 					</Button>
 				</Grid>
-				<Grid item xs={12} sm={2}>
-					<Typography variant="body1" color="initial">
-						Section Name
-					</Typography>
-				</Grid>
-				{/* <Grid item xs={12} sm={10}>
-          <FormControl variant="outlined" fullWidth>  
-            <InputLabel>Section Name</InputLabel> 
-           <OutlinedInput
-              required
-              fullWidth
-              id="courseOrganizer"
-              label="Course Organizer"
-              autoComplete="courseOrganizer"
-              variant="outlined"
-              value={sectionName}
-              onChange={handleAddSection("sectionName")}
-            />
-          </FormControl>
-        </Grid>
-        <Grid item xs={12} sm={2}>
-          <Typography variant="body1" color="initial">
-          Section Name 
-          </Typography>
-        </Grid>
-        <Grid item xs={12} sm={10}>
-          <FormControl variant="outlined" fullWidth>  
-            <InputLabel>Section Name</InputLabel> 
-           <OutlinedInput
-              required
-              fullWidth
-              id="courseOrganizer"
-              label="Course Organizer"
-              autoComplete="courseOrganizer"
-              variant="outlined"
-              value={sectionDescription}
-              onChange={handleAddSection("sectionDescription")}
-            />
-          </FormControl>
-        </Grid>
-        <Grid item xs={12} sm={2}>
-          <Typography variant="body1" color="initial">
-          Video Name
-          </Typography>
-        </Grid>
-        <Grid item xs={12} sm={10}>
-          <FormControl variant="outlined" fullWidth>
-            <InputLabel>Video Name</InputLabel>
-            <OutlinedInput
-              required
-              fullWidth
-              id="courseOrganizer"
-              label="Course Organizer"
-              variant="outlined"
-              value={videoName}
-              onChange={handleAddSection("videoName")}
-              />
-          </FormControl>
-        </Grid> */}
-				<Grid item xs={12} sm={2}>
-					<Typography variant="body1" color="initial">
-						Video
-					</Typography>
-				</Grid>
-				<Grid item xs={12} sm={10}>
-					<input
-						type="file"
-						name="videoLink"
-						onChange={handleAddSection('videoLink')}
-					/>
-					<Button
-						variant="outlined"
-						color="primary"
-						onClick={addVideotosection}
-						className={classes.button}>
-						add video
-					</Button>
-				</Grid>
+
+				<div>
+					{createNewHostsForm()}
+					<div style={{ margin: '25px 0px' }}>
+						{' '}
+						<button onClick={addNewHost}>Add Section</button>
+					</div>
+				</div>
+
 				<Grid item xs={12} sm={2}>
 					<Typography variant="body1" color="initial">
 						Course Tags
